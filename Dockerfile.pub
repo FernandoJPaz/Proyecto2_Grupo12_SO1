@@ -1,0 +1,27 @@
+# Stage 0
+FROM golang:1.15.6-alpine AS build
+
+ARG PROJECT
+ENV PROJECT_SRC=/go/src/${PROJECT}
+
+RUN apk add --no-cache git
+RUN go get github.com/golang/dep/cmd/dep
+
+#COPY Gopkg.lock Gopkg.toml ${PROJECT_SRC}/
+WORKDIR ${PROJECT_SRC}
+
+#RUN dep ensure -vendor-only
+
+COPY . ${PROJECT_SRC}/
+
+#cambio a directorio de servidor para build imagen Redis subscriber
+WORKDIR ${PROJECT_SRC}/Ruta2/Pub/
+
+#build de la imagen
+RUN go build -o /project/redispub
+
+# Stage 1
+FROM alpine:latest
+COPY --from=build /project /project
+WORKDIR /project
+ENTRYPOINT ["./redispub"]

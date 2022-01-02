@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: redis-sub
+  name: redis-sub
+  namespace: project
+spec:
+  selector:
+    matchLabels:
+      app: redis-sub
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis-sub
+    spec:
+      containers:
+      - name: redis-sub
+        image: fernandopaz1995/redis-sub:latest

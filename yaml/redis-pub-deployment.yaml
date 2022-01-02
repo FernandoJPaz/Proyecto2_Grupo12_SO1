@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: redis-pub
+  name: redis-pub
+  namespace: project
+spec:
+  selector:
+    matchLabels:
+      app: redis-pub
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis-pub
+    spec:
+      containers:
+      - name: redis-pub
+        image: fernandopaz1995/redis-pub:latest
+        ports:
+        - containerPort: 3000

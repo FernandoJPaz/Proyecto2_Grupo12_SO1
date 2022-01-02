@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dummy-root
+  name: dummy-root
+  namespace: project
+spec:
+  selector:
+    matchLabels:
+      app: dummy-root
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dummy-root
+    spec:
+      containers:
+      - name: dummy-root
+        image: fernandopaz1995/api-dummy-root:latest
+        ports:
+        - containerPort: 3000

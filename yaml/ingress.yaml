@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dummy-ingress
+  namespace: project
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
+      grpc_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: load.sopes1-diciembre.tk
+      http:
+        paths:
+          - backend:
+              service:
+                name: dummy-root
+                port: 
+                  number: 3000
+            path: /
+            pathType: Prefix

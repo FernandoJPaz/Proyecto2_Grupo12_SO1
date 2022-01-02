@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grpc-server
+  name: grpc-server
+  namespace: project
+spec:
+  selector:
+    matchLabels:
+      app: grpc-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: grpc-server
+    spec:
+      containers:
+      - name: grpc-server
+        image: fernandopaz1995/server-grpc:latest
+        ports:
+        - containerPort: 9000

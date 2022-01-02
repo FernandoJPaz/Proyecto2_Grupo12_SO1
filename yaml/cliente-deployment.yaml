@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grpc-client
+  name: grpc-client
+  namespace: project
+spec:
+  selector:
+    matchLabels:
+      app: grpc-client
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: grpc-client
+    spec:
+      containers:
+      - name: grpc-client
+        image: fernandopaz1995/client-grpc:latest
+        ports:
+        - containerPort: 3000

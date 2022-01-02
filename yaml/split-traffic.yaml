@@ -1,0 +1,14 @@
+apiVersion: split.smi-spec.io/v1alpha2
+kind: TrafficSplit
+metadata:
+  name: function-split
+  namespace: project
+spec:
+  # The root service that clients use to connect to the destination application.
+  service: dummy-root
+  # Services inside the namespace with their own selectors, endpoints and configuration.
+  backends:
+  - service: grpc-client
+    weight: 50
+  - service: redis-pub
+    weight: 50

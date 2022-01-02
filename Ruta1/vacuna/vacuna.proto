@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package grpc;
+
+option go_package = "github.com/fernandopaz/proyecto2/Ruta1/vacuna";
+
+message Registro{
+    string name = 1;
+    string location = 2;
+    int32 age = 3;
+    string vaccine_type = 4;
+    int32 n_dose = 5;
+}
+
+message Respuesta{
+    int32 resultado = 1;
+}
+
+service VacunaService {
+    rpc AgregarRegistro(Registro) returns (Respuesta);
+}
